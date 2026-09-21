@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Online Shopping</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Bricolage+Grotesque:wght@500;600;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+    
+        .banner-section { background: #2c1b3d; }
+        .banner-section::after { border-left-color: #2c1b3d; }
+        .banner-title { color: #d9a6ff; }
+        .admin-badge {
+            display: inline-block;
+            background: #d9a6ff;
+            color: #2c1b3d;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+        .hint-box {
+            margin-top: 1rem;
+            padding: 0.7rem 1rem;
+            background: #f5f0fa;
+            border: 1px dashed #ce93d8;
+            border-radius: 6px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 0.82rem;
+            color: #7b0094;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="banner-section">
+        <span class="admin-badge">ADMIN ONLY</span>
+        <h1 class="banner-title">ONLINE SHOPPING</h1>
+    </section>
+    <section class="form-section">
+        <div class="form-container">
+            <h2 class="form-title">Admin Login</h2>
+            <p class="form-subtitle">สำหรับผู้ดูแลระบบเท่านั้น</p>
+
+            <div class="auth-msg" id="authMsg"></div>
+
+            <form onsubmit="event.preventDefault(); adminLogin();">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+
+            <a href="home.html" class="btn-cancel">กลับหน้าร้าน</a>
+
+        </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        var API_BASE = 'https://1270dhw9-3000.asse.devtunnels.ms/api';
+        var ADMIN_KEY = 'adminUser';
+
+        function showAuthMsg(msg, type) {
+            var el = document.getElementById('authMsg');
+            el.textContent = msg;
+            el.className = 'auth-msg ' + type;
+        }
+
+        function adminLogin() {
+            var u = document.getElementById('username').value.trim();
+            var p = document.getElementById('password').value;
+
+            if (!u || !p) {
+                showAuthMsg('กรุณากรอกข้อมูลให้ครบ', 'error');
+                return;
+            }
+
+            var submitBtn = document.querySelector('.btn-primary');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'กำลังตรวจสอบ...';
+
+            fetch(API_BASE + '/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: u, password: p })
+            })
+            .then(function(res) {
+                return res.json().then(function(data) { return { ok: res.ok, data: data }; });
+            })
+            .then(function(result) {
+                if (!result.ok) {
+                    showAuthMsg(' ' + (result.data.error || 'เข้าสู่ระบบไม่สำเร็จ'), 'error');
+                    return;
+                }
+                if (result.data.user.role !== 'admin') {
+                    showAuthMsg(' บัญชีนี้ไม่มีสิทธิ์เข้าหน้าแอดมิน', 'error');
+                    return;
+                }
+                localStorage.setItem(ADMIN_KEY, JSON.stringify(result.data.user));
+                showAuthMsg(' เข้าสู่ระบบสำเร็จ! กำลังไปหน้าแอดมิน...', 'success');
+                setTimeout(function() {
+                    window.location.href = 'admin.html';
+                }, 800);
+            })
+            .catch(function() {
+                showAuthMsg(' การล็อคอินล้มเหลว', 'error');
+            })
+            .finally(function() {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Login';
+            });
+        }
+    </script>
+
+</body>
+</html>
