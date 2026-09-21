@@ -26,12 +26,6 @@
       font-size: 1.2rem;
       color: #111;
       letter-spacing: -0.01em;
-      display: block;
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
     .product-price {
       font-family: 'Archivo', sans-serif;
@@ -131,13 +125,11 @@
     .product-image img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 1rem; }
     .product-image .placeholder { color: #aaa; font-size: 0.85rem; text-align: center; padding: 1rem; }
     .product-info { padding: 1rem; }
-    .product-header { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-    .product-header .more-btn { flex-shrink: 0; }
+    .product-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
     .more-btn { background: none; border: none; cursor: pointer; color: #111; display: flex; align-items: center; padding: 4px; border-radius: 4px; transition: background 0.2s; }
     .more-btn:hover { background: #e0e0e0; }
     .more-btn svg { width: 18px; height: 18px; }
-    .product-footer { display: flex; justify-content: space-between; align-items: center; min-height: 32px; }
-    .product-price, .wish-btn { flex-shrink: 0; }
+    .product-footer { display: flex; justify-content: space-between; align-items: center; }
     .wish-btn {
       background: none; border: none; cursor: pointer; padding: 0;
       display: flex; align-items: center; gap: 0.3rem;
@@ -211,7 +203,7 @@
     .footer-bottom-links a { color: #7b0094; text-decoration: none; transition: color 0.2s; }
     .footer-bottom-links a:hover { color: #e91e8c; }
 
-
+  
     @media (max-width: 1024px) {
       .hero-container { grid-template-columns: 1fr; }
       .features-container { grid-template-columns: repeat(2, 1fr); }
@@ -230,163 +222,192 @@
       .hero-title { font-size: 1.6rem; }
     }
 
-    /* ===== Privacy / Data Consent Popup ===== */
-    .consent-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.58);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 99999;
-    }
-    .consent-overlay.hidden { display: none; }
-    .consent-box {
-      width: 100%;
-      max-width: 520px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 18px 60px rgba(0,0,0,0.25);
-      animation: consentIn .2s ease-out;
-    }
-    @keyframes consentIn {
-      from { opacity: 0; transform: translateY(10px) scale(.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .consent-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 12px;
-      border-radius: 50%;
-      background: #f8dfff;
-      color: #7b0094;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-    }
-    .consent-icon img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-      display: block;
-    }
-    .consent-box h2 {
-      margin: 0 0 12px;
-      text-align: center;
-      color: #2c1b3d;
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1.35rem;
-    }
-    .consent-box p {
-      margin: 0 0 10px;
-      color: #555;
-      font-family: 'Syne', sans-serif;
-      font-size: .92rem;
-      line-height: 1.75;
-    }
-    .consent-note {
-      color: #777 !important;
-      font-size: .82rem !important;
-    }
-    .consent-remember {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-top: 14px;
-      padding: 12px 14px;
-      background: #fdf7fc;
-      border: 1px solid #f0d9f5;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: 'Syne', sans-serif;
-      font-size: .88rem;
-      line-height: 1.5;
-      color: #444;
-    }
-    .consent-remember input {
-      width: 18px;
-      height: 18px;
-      flex: 0 0 18px;
-      margin-top: 2px;
-      accent-color: #9c00b4;
-      cursor: pointer;
-    }
-    .consent-remember small {
-      display: block;
-      color: #888;
-      font-size: .78rem;
-    }
-    .consent-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .consent-actions button {
-      flex: 1;
-      min-height: 44px;
-      border-radius: 9px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .2s;
-    }
-    .consent-reject {
-      background: #fff;
-      border: 1px solid #d7d7d7;
-      color: #555;
-    }
-    .consent-reject:hover { background: #f5f5f5; }
-    .consent-accept {
-      background: #9c00b4;
-      border: 1px solid #9c00b4;
-      color: #fff;
-    }
-    .consent-accept:hover { background: #7b0094; }
-    @media (max-width: 520px) {
-      .consent-box { padding: 22px; }
-      .consent-actions { flex-direction: column; }
-    }
+/* =========================
+   Floating Task Widget
+   Same theme as Home
+   ========================= */
+.task-widget {
+  --task-main: #6d3fd3;
+  --task-light: #f0e7ff;
+  --task-bg: #f5edff;
+  --task-text: var(--text-color, #222);
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  width: 310px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.18);
+  z-index: 99999;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.task-widget.collapsed {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  cursor: grab;
+  background: linear-gradient(135deg, #7b35d8 0%, #6a3fd3 65%, #536bd8 100%);
+}
+
+.task-widget.collapsed .task-content {
+  display: none;
+}
+
+.task-widget.collapsed .task-header {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.task-widget.collapsed .task-title,
+.task-widget.collapsed .minimize-btn {
+  display: none;
+}
+
+.task-icon {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.task-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.task-widget.collapsed .task-icon {
+  display: block;
+}
+
+.task-header {
+  height: 50px;
+  background: linear-gradient(135deg, #7b35d8 0%, #6a3fd3 65%, #536bd8 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 0 16px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.task-header:active {
+  cursor: grabbing;
+}
+
+.task-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.minimize-btn {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+}
+
+.minimize-btn:hover {
+  background: rgba(255,255,255,.15);
+}
+
+.task-content {
+  padding: 12px;
+}
+
+.task-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.task-buttons .task-btn:last-child {
+  grid-column: 1 / -1;
+}
+
+.task-btn {
+  border: 1px solid #ddd;
+  background: var(--task-bg);
+  border-radius: 9px;
+  padding: 9px 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: .2s;
+}
+
+.task-btn:hover {
+  background: var(--task-light);
+}
+
+.task-btn.active {
+  background: linear-gradient(135deg, #7b35d8 0%, #6a3fd3 65%, #536bd8 100%);
+  color: #fff;
+  border-color: #6d3fd3;
+}
+
+.task-frame {
+  border: 1px solid #d8c5f2;
+  border-radius: 10px;
+  padding: 12px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #f7efff;
+}
+
+.task-frame h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.task-frame p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+.task-frame ul {
+  padding-left: 20px;
+  margin-top: 6px;
+}
+
+.task-frame li {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 600px) {
+  .task-widget {
+    right: 15px;
+    bottom: 15px;
+    width: min(310px, calc(100vw - 30px));
+  }
+
+  .task-widget.collapsed {
+    width: 58px;
+    height: 58px;
+  }
+}
 
 </style>
 </head>
 <body>
 
-<!--  Popup  -->
-<div id="consentPopup" class="consent-overlay" role="dialog"
-     aria-modal="true" aria-labelledby="consentTitle">
-  <div class="consent-box">
-    <div class="consent-icon">
-      <img src="https://svgsilh.com/svg/2430207.svg" alt="" width="28" height="28">
-    </div>
-    <h2 id="consentTitle">การเก็บข้อมูลการใช้งาน</h2>
-    <p>
-      เว็บไซต์นี้มีการเก็บข้อมูลการใช้งานบางส่วน เช่น
-      การเข้าชมสินค้า การค้นหา และการเพิ่มสินค้าลงตะกร้า
-      เพื่อใช้ในการปรับปรุงระบบและประเมินประสบการณ์การใช้งาน
-    </p>
-    <p class="consent-note">
-      คุณสามารถเลือกยินยอมหรือไม่ยินยอมได้
-      ระบบจะถามทุกครั้งที่เข้าหน้าแรก
-    </p>
-    <label class="consent-remember" for="consentRemember">
-      <input type="checkbox" id="consentRemember">
-      <span>
-        ไม่ต้องถามอีก
-      </span>
-    </label>
-    <div class="consent-actions">
-      <button type="button" class="consent-reject" onclick="rejectDataConsent()">
-        ไม่ยินยอม
-      </button>
-      <button type="button" class="consent-accept" onclick="acceptDataConsent()">
-        ยินยอม
-      </button>
-    </div>
-  </div>
-</div>
 <div style="background-color:transparent;box-sizing:border-box;">
   <header class="navbar">
     <div class="nav-container">
@@ -456,6 +477,7 @@
         </div>
       </div>
       <div class="hero-image">
+        <!-- ★ ใส่ลิงก์รูปแบนเนอร์ของคุณใน src ตรงนี้ได้เลย -->
         <img src="https://i.pinimg.com/736x/77/19/00/77190088c8605dde08fdd0b3ab1a5441.jpg" alt="Banner" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'placeholder\'>ใส่รูปแบนเนอร์<br>ของคุณที่นี่</div>'">
       </div>
     </div>
@@ -465,6 +487,16 @@
       <span class="dot">&#9679;</span>
     </div>
   </main>
+  <section class="demo-section" id="demo">
+    <div class="demo-container">
+      <h2 class="section-title">DEMO สามารถสาธิตได้อย่างน้อย 3 ภารกิจหลัก</h2>
+      <div class="demo-list">
+        <div class="demo-item"><span class="demo-number">1</span><span>สมัครสมาชิกหรือเข้าสู่ระบบ</span></div>
+        <div class="demo-item"><span class="demo-number">2</span><span>ค้นหาและเลือกสินค้า</span></div>
+        <div class="demo-item"><span class="demo-number">3</span><span>กรอกข้อมูลและยืนยันรายการ</span></div>
+      </div>
+    </div>
+  </section>
 
   <section id="wishlistPanel" style="display:none;max-width:1200px;margin:1.5rem auto 0;padding:0 5%;">
     <div style="background:#fdf7fc;border:1px solid #f0d9f5;border-radius:12px;padding:1rem 1.2rem;">
@@ -548,6 +580,7 @@
       <p class="loading-text">กำลังโหลดสินค้า...</p>
     </div>
 
+    <!-- หมวดหมู่ที่แอดมินเพิ่มเอง -->
     <div id="customCategoriesHome"></div>
 
     <h2 class="section-title">Trending Product</h2>
@@ -555,6 +588,7 @@
       <p class="loading-text">กำลังโหลดสินค้า...</p>
     </div>
 
+    <!-- Gamer Gears -->
     <h2 class="section-title">Gamer Gears</h2>
     <div class="products-grid" id="gamerGrid">
       <p class="loading-text">กำลังโหลดสินค้า...</p>
@@ -626,54 +660,6 @@
 
   var API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
 
-  //  Privacy / Data Consent --
-  var CONSENT_KEY = 'dataConsent';
-  var LOGIN_PAGE = 'login.html';
-
-  function hasDataConsent() {
-    return window.dataConsent === true;
-  }
-
-  function hideConsentPopup() {
-    var popup = document.getElementById('consentPopup');
-    if (popup) popup.classList.add('hidden');
-  }
-
-  function acceptDataConsent() {
-    var remember = document.getElementById('consentRemember');
-    if (remember && remember.checked) {
-      localStorage.setItem(CONSENT_KEY, 'accepted');
-    }
-    window.dataConsent = true;
-    hideConsentPopup();
-    if (typeof loadRecommended === 'function') loadRecommended();
-  }
-
-  function rejectDataConsent() {
-    localStorage.removeItem(CONSENT_KEY);
-    window.dataConsent = false;
-    window.location.replace(LOGIN_PAGE);
-  }
-
-  function initDataConsent() {
-    var popup = document.getElementById('consentPopup');
-
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') {
-      localStorage.removeItem(CONSENT_KEY);
-    }
-
-    if (localStorage.getItem(CONSENT_KEY) === 'accepted') {
-      window.dataConsent = true;
-      hideConsentPopup();
-    } else {
-      window.dataConsent = false;
-      if (popup) popup.classList.remove('hidden');
-    }
-  }
-
-  initDataConsent();
-
-
   var LIKES_ICON = '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
   var MORE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
 
@@ -699,6 +685,8 @@
     return String(n);
   }
 
+  // ยังไม่มีฟิลด์ likes จาก backend -> สร้างเลขจำลองคงที่ต่อสินค้า (อิงจาก id)
+  // ไว้แสดงก่อน พอ backend ส่ง product.likes มาจริง โค้ดจะใช้ค่าจริงแทนทันที
   function pseudoLikes(id) {
     var str = String(id || '');
     var hash = 0;
@@ -876,6 +864,7 @@
           });
         }
 
+        // รวมสินค้าทุกหมวดไว้สำหรับระบบค้นหา
         allProductsForSearch = products.slice();
 
         var wishlistPanel = document.getElementById('wishlistPanel');
@@ -883,7 +872,7 @@
       })
       .catch(function (err) {
         console.error(err);
-        var msg = 'โหลดสินค้าไม่สำเร็จ ';
+        var msg = 'โหลดสินค้าไม่สำเร็จ ตรวจสอบว่ารัน backend อยู่ (npm start)';
         showGridError('foryouGrid', msg);
         showGridError('trendingGrid', msg);
         showGridError('gamerGrid', msg);
@@ -914,7 +903,7 @@
       });
   }
 
-  //  (Wishlist)
+  // ==== (Wishlist) =====
   var WISH_KEY = 'wishlist';
   function getWishlist() {
     try { return JSON.parse(localStorage.getItem(WISH_KEY) || '[]'); } catch (e) { return []; }
@@ -974,15 +963,181 @@
   window.addEventListener('storage', function (e) { if (e.key === CART_KEY) updateCartBadge(); });
 
   loadProducts();
+  loadRecommended();
+</script>
 
-  if (hasDataConsent()) {
-    loadRecommended();
-  } else {
-    var recommendedGrid = document.getElementById('recommendedGrid');
-    if (recommendedGrid) {
-      recommendedGrid.innerHTML = '<p class="loading-text">ต้องยินยอมการเก็บข้อมูลก่อนจึงจะแสดงคำแนะนำเฉพาะบุคคล</p>';
+<!-- =========================
+     Floating Task Widget
+     ========================= -->
+<div class="task-widget collapsed" id="taskWidget">
+  <div class="task-header" id="taskHeader">
+    <div class="task-icon"><img src="https://cdn-icons-png.flaticon.com/256/1017/1017975.png" alt="ภารกิจ"></div>
+
+    <div class="task-title">
+       ภารกิจทดสอบระบบ
+    </div>
+
+
+    <button class="minimize-btn" id="minimizeTask" type="button" aria-label="ย่อ">
+      −
+    </button>
+  </div>
+
+  <div class="task-content">
+    <div class="task-buttons">
+      <button class="task-btn" type="button" onclick="showTask(1)">ภารกิจ 1</button>
+      <button class="task-btn" type="button" onclick="showTask(2)">ภารกิจ 2</button>
+      <button class="task-btn" type="button" onclick="showTask(3)">ภารกิจ 3</button>
+      <button class="task-btn" type="button" onclick="showTask(4)">ภารกิจ 4</button>
+      <button class="task-btn" type="button" onclick="showTask(5)">ภารกิจ 5</button>
+    </div>
+
+    <div class="task-frame" id="taskFrame">
+      <p>กรุณาเลือกภารกิจที่ต้องการทำ</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const taskWidget = document.getElementById("taskWidget");
+  const taskHeader = document.getElementById("taskHeader");
+  const minimizeTask = document.getElementById("minimizeTask");
+  const taskFrame = document.getElementById("taskFrame");
+
+  const taskData = {
+    1: {
+      title: "ภารกิจ 1: ค้นหาและดูรายละเอียดสินค้า",
+      description:
+        "ให้ผู้ใช้ค้นหาสินค้าที่สนใจจากหน้าเว็บไซต์ และเข้าไปดูรายละเอียดสินค้า พร้อมตรวจสอบราคา รายละเอียด และตัวเลือกซื้อสินค้า",
+      questions: [
+        "ผู้ใช้สามารถหาสินค้าได้หรือไม่",
+        "ใช้เวลาค้นหานานแค่ไหน",
+        "เข้าใจข้อมูลสินค้าได้ง่ายหรือไม่"
+      ]
+    },
+    2: {
+      title: "ภารกิจ 2: ทดลองระบบแนะนำสินค้า",
+      description:
+        "ให้ผู้ใช้เลือกดูสินค้า 1 รายการ จากนั้นสังเกตสินค้าที่ระบบแนะนำ และประเมินว่าสินค้าที่แนะนำตรงกับความสนใจหรือไม่",
+      questions: []
+    },
+    3: {
+      title: "ภารกิจ 3: เพิ่มสินค้าและตรวจสอบตะกร้าสินค้า",
+      description:
+        "ให้ผู้ใช้เลือกสินค้า เพิ่มลงตะกร้า จากนั้นเปิดหน้าตะกร้าและตรวจสอบจำนวนสินค้า ราคา และยอดรวมก่อนชำระเงิน",
+      questions: []
+    },
+    4: {
+      title: "ภารกิจ 4: สมัครสมาชิกและเข้าสู่ระบบ",
+      description:
+        "ให้ผู้ใช้สร้างบัญชีใหม่ จากนั้นเข้าสู่ระบบด้วยข้อมูลที่สมัครไว้",
+      questions: [
+        "ความง่ายของขั้นตอนสมัครสมาชิก",
+        "ความเข้าใจช่องกรอกข้อมูล",
+        "จำนวนครั้งที่เกิดข้อผิดพลาด"
+      ]
+    },
+    5: {
+      title: "ภารกิจ 5: การซื้อสินค้า",
+      description:
+        "ให้ผู้ใช้ซื้อสินค้าให้สำเร็จ หลังจากนั้นกลับไปหน้าหลัก",
+      questions: []
+    }
+  };
+
+  window.showTask = function (number) {
+    const task = taskData[number];
+    if (!task) return;
+
+    let html =
+      "<h3>" + task.title + "</h3>" +
+      "<p><strong>สิ่งที่ต้องทำ:</strong><br>" +
+      task.description + "</p>";
+
+    if (task.questions.length > 0) {
+      html += "<p><strong>สิ่งที่สังเกต:</strong></p><ul>";
+
+      task.questions.forEach(function (question) {
+        html += "<li>" + question + "</li>";
+      });
+
+      html += "</ul>";
+    }
+
+    taskFrame.innerHTML = html;
+
+    document.querySelectorAll(".task-btn").forEach(function (btn) {
+      btn.classList.remove("active");
+    });
+
+    const selectedButton = document.querySelectorAll(".task-btn")[number - 1];
+    if (selectedButton) selectedButton.classList.add("active");
+  };
+
+  /* คลิกวงกลมเพื่อเปิด */
+  taskHeader.addEventListener("click", function (e) {
+    if (e.target === minimizeTask) return;
+
+    if (taskWidget.classList.contains("collapsed")) {
+      taskWidget.classList.remove("collapsed");
+    }
+  });
+
+  /* ปุ่ม - เพื่อย่อกลับเป็นวงกลม */
+  minimizeTask.addEventListener("click", function (e) {
+    e.stopPropagation();
+    taskWidget.classList.add("collapsed");
+  });
+
+  /* ลากได้ทั้งเมาส์และการสัมผัส */
+  let dragging = false;
+  let pointerId = null;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  taskHeader.addEventListener("pointerdown", function (e) {
+    if (e.target === minimizeTask) return;
+
+    dragging = true;
+    pointerId = e.pointerId;
+
+    const rect = taskWidget.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    taskHeader.setPointerCapture(pointerId);
+  });
+
+  taskHeader.addEventListener("pointermove", function (e) {
+    if (!dragging || e.pointerId !== pointerId) return;
+
+    let x = e.clientX - offsetX;
+    let y = e.clientY - offsetY;
+
+    const maxX = window.innerWidth - taskWidget.offsetWidth;
+    const maxY = window.innerHeight - taskWidget.offsetHeight;
+
+    x = Math.max(0, Math.min(x, maxX));
+    y = Math.max(0, Math.min(y, maxY));
+
+    taskWidget.style.left = x + "px";
+    taskWidget.style.top = y + "px";
+    taskWidget.style.right = "auto";
+    taskWidget.style.bottom = "auto";
+  });
+
+  function stopDragging(e) {
+    if (e.pointerId === pointerId) {
+      dragging = false;
+      pointerId = null;
     }
   }
+
+  taskHeader.addEventListener("pointerup", stopDragging);
+  taskHeader.addEventListener("pointercancel", stopDragging);
+})();
 </script>
+
 </body>
 </html>
