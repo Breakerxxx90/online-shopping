@@ -8,7 +8,7 @@
  * sessionStorage เท่านั้น (หายไปเมื่อปิดแท็บ/เบราว์เซอร์) ไม่ใช่ localStorage ที่อยู่ถาวร
  */
 (function (window) {
-  var API_BASE = 'https://1270dhw9-3000.asse.devtunnels.ms/api';
+  var API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
   var SESSION_KEY = 'rcm_session_id';
 
   function getSessionId() {
