@@ -125,8 +125,15 @@
     .product-image img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 1rem; }
     .product-image .placeholder { color: #aaa; font-size: 0.85rem; text-align: center; padding: 1rem; }
     .product-info { padding: 1rem; }
-    .product-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-    .more-btn { background: none; border: none; cursor: pointer; color: #111; display: flex; align-items: center; padding: 4px; border-radius: 4px; transition: background 0.2s; }
+    .product-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 0.5rem; }
+    .product-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .more-btn { background: none; border: none; cursor: pointer; color: #111; display: flex; align-items: center; padding: 4px; border-radius: 4px; transition: background 0.2s; flex-shrink: 0; }
     .more-btn:hover { background: #e0e0e0; }
     .more-btn svg { width: 18px; height: 18px; }
     .product-footer { display: flex; justify-content: space-between; align-items: center; }
@@ -135,6 +142,7 @@
       display: flex; align-items: center; gap: 0.3rem;
       font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 0.92rem;
       color: #333; transition: transform 0.15s;
+      flex-shrink: 0;
     }
     .wish-btn:active { transform: scale(0.92); }
     .wish-btn svg { width: 18px; height: 18px; fill: none; stroke: #ccc; stroke-width: 2; transition: fill 0.15s, stroke 0.15s; }
@@ -697,7 +705,7 @@
         '<div class="product-image">' + productImageHtml(product) + '</div>' +
         '<div class="product-info">' +
           '<div class="product-header">' +
-            '<span class="product-name">' + escapeHtml(product.name) + '</span>' +
+            '<span class="product-name" title="' + escapeHtml(product.name) + '">' + escapeHtml(product.name) + '</span>' +
             '<button class="more-btn" aria-label="More" onclick="event.stopPropagation()">' + MORE_ICON + '</button>' +
           '</div>' +
           '<div class="product-footer">' +
