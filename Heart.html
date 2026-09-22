@@ -8,11 +8,38 @@
 <style>
   * { box-sizing: border-box; font-family: 'Prompt', 'Syne', sans-serif; }
   body { margin: 0; background: #f6f3f8; color: #333; }
-  
+
   .navbar { background: #f8dfff; padding: 1rem 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
   .nav-container { max-width: 1200px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
   .logo { display: flex; align-items: center; gap: .6rem; color: #9c00b4; font-weight: 700; font-size: 1.2rem; text-decoration: none; font-family: 'Bricolage Grotesque', sans-serif; }
-  .logo svg { width: 32px; height: 32px; }
+
+  /* ===== โลโก้แบบรูปภาพ ไม่มีกรอบ และปรับขนาดได้อิสระ ===== */
+  .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  #logoImage {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+    display: none;
+  }
+
+  .logo-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #9c00b4;
+    display: none;
+  }
+
   .nav-menu { display: flex; gap: 2.5rem; }
   .nav-link { color: #7b0094; text-decoration: none; font-weight: 500; transition: color 0.2s; }
   .nav-link:hover { color: #d500f9; }
@@ -20,14 +47,14 @@
   .nav-icons a { color: #7b0094; display: flex; transition: transform 0.2s; }
   .nav-icons a:hover { transform: scale(1.1); }
   .nav-icons svg { width: 26px; height: 26px; }
-  
+
   main { max-width: 1200px; margin: auto; padding: 3rem 5% 5rem; }
   .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
   .page-title { font-family: 'Prompt', 'Bricolage Grotesque', sans-serif; font-size: 2rem; color: #111; margin: 0; font-weight: 600; }
   .page-desc { color: #666; margin: .4rem 0 0; font-size: 0.95rem; }
   .back-btn { padding: .7rem 1.2rem; background: #fff; border: 1px solid #ddd; border-radius: 999px; text-decoration: none; color: #555; font-weight: 500; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
   .back-btn:hover { border-color: #9c00b4; color: #9c00b4; }
-  
+
   .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
   .product-card { background: #fff; border-radius: 12px; overflow: hidden; transition: .25s; border: 1px solid #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
   .product-card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(156,0,180,.15); border-color: #f8dfff; }
@@ -35,12 +62,12 @@
   .product-image img { width: 100%; height: 100%; object-fit: contain; padding: 1.5rem; transition: transform 0.3s; }
   .product-card:hover .product-image img { transform: scale(1.05); }
   .product-image .emoji-icon { font-size: 4rem; }
-  
+
   .product-info { padding: 1.2rem; }
   .product-name { font-weight: 500; font-size: 1.1rem; color: #111; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .product-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
   .product-price { font-weight: 600; font-size: 1.2rem; color: #9c00b4; }
-  
+
   /* ปรับแต่งปุ่มหัวใจให้สวยงามขึ้น */
   .remove-btn { 
     border: none; 
@@ -60,14 +87,14 @@
   .remove-btn:hover { background: #fee2e2; transform: scale(1.05); }
   .remove-btn:hover svg { transform: scale(1.15); }
   .remove-btn:active { transform: scale(0.95); }
-  
+
   .empty { text-align: center; padding: 5rem 1rem; background: #fff; border-radius: 12px; border: 1px dashed #ddd; }
   .empty-heart { margin-bottom: 1rem; animation: pulse 2s infinite; }
   .empty h2 { color: #555; margin-bottom: 0.5rem; font-weight: 500; }
   .empty p { color: #888; }
-  
+
   .footer { background: #fef0ff; padding: 2rem 5%; text-align: center; color: #7b0094; font-size: 0.9rem; }
-  
+
   @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -86,26 +113,46 @@
 <header class="navbar">
   <div class="nav-container">
     <a href="home.html" class="logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
-      </svg>
-      ONLINE SHOPPING
+      <span class="logo-icon" id="logoIcon">
+        <img id="logoImage"
+             src=""
+             alt="Online Shopping Logo"
+             onerror="showLogoFallback()">
+
+        <svg id="logoFallback"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </span>
+      <span>ONLINE SHOPPING</span>
     </a>
+
     <nav class="nav-menu">
       <a href="home.html" class="nav-link">Home</a>
       <a href="#" class="nav-link">About</a>
       <a href="#" class="nav-link">Shop</a>
       <a href="#" class="nav-link">Contact</a>
     </nav>
+
     <div class="nav-icons">
       <a href="Heart.html" aria-label="Wishlist">
         <svg viewBox="0 0 24 24" fill="#e53935" stroke="#e53935" stroke-width="2">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
       </a>
+
       <a href="cart.html" aria-label="Cart">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
         </svg>
       </a>
     </div>
@@ -120,6 +167,7 @@
     </div>
     <a href="home.html" class="back-btn">← กลับหน้าหลัก</a>
   </div>
+
   <div id="productsGrid" class="products-grid"></div>
 </main>
 
@@ -129,9 +177,40 @@
   const API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
   const WISH_KEY = 'wishlist';
 
+  const LOGO_IMAGE_URL = 'https://i.pinimg.com/736x/52/39/86/523986afa120136bd56642bb00f23477.jpg';
+
+  function showLogoFallback() {
+    const img = document.getElementById('logoImage');
+    const fallback = document.getElementById('logoFallback');
+
+    if (img) img.style.display = 'none';
+    if (fallback) fallback.style.display = 'block';
+  }
+
+  function loadLogoImage() {
+    const img = document.getElementById('logoImage');
+    const fallback = document.getElementById('logoFallback');
+
+    if (!img || !fallback || !LOGO_IMAGE_URL) {
+      showLogoFallback();
+      return;
+    }
+
+    img.onload = function () {
+      img.style.display = 'block';
+      fallback.style.display = 'none';
+    };
+
+    img.onerror = showLogoFallback;
+    img.src = LOGO_IMAGE_URL;
+  }
+
   function getWishlist() {
-    try { return JSON.parse(localStorage.getItem(WISH_KEY) || '[]'); } 
-    catch(e) { return []; }
+    try {
+      return JSON.parse(localStorage.getItem(WISH_KEY) || '[]');
+    } catch(e) {
+      return [];
+    }
   }
 
   function saveWishlist(x) {
@@ -148,13 +227,19 @@
     const ids = getWishlist();
     const wanted = products.filter(p => ids.includes(String(p.id)));
     const grid = document.getElementById('productsGrid');
-    
+
     if(!wanted.length) {
       grid.innerHTML = `
         <div class="empty" style="grid-column:1/-1">
           <div class="empty-heart">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#e53935" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            <svg width="64" height="64" viewBox="0 0 24 24"
+                 fill="#e53935"
+                 aria-hidden="true">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                       2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+                       C13.09 3.81 14.76 3 16.5 3
+                       19.58 3 22 5.42 22 8.5
+                       c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
           </div>
           <h2>ยังไม่มีสินค้าที่ถูกใจ</h2>
@@ -162,19 +247,27 @@
         </div>`;
       return;
     }
-    
+
     grid.innerHTML = wanted.map(p => `
       <div class="product-card">
         <div class="product-image" onclick="location.href='product.html?id=${encodeURIComponent(p.id)}'">
-          ${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}">` : `<div class="emoji-icon">${esc(p.icon||'📦')}</div>`}
+          ${p.image
+            ? `<img src="${esc(p.image)}" alt="${esc(p.name)}">`
+            : `<div class="emoji-icon">${esc(p.icon||'📦')}</div>`}
         </div>
+
         <div class="product-info">
           <div class="product-name">${esc(p.name)}</div>
+
           <div class="product-bottom">
             <span class="product-price">$${Number(p.price).toFixed(2)}</span>
-            <button class="remove-btn" onclick="removeWish('${String(p.id).replace(/'/g,"\\'")}')" title="ลบออกจากรายการโปรด">
+
+            <button
+              class="remove-btn"
+              onclick="removeWish('${String(p.id).replace(/'/g,"\\'")}')"
+              title="ลบออกจากรายการโปรด">
               <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0 7.78z"/>
               </svg>
             </button>
           </div>
@@ -194,12 +287,16 @@
       .then(all => {
         // กรองสินค้าซ้ำออก (กรณีมี id ซ้ำกัน)
         const seen = new Set();
+
         const uniqueProducts = all.filter(p => {
           const k = String(p.id);
+
           if(seen.has(k)) return false;
+
           seen.add(k);
           return true;
         });
+
         render(uniqueProducts);
       })
       .catch(() => {
@@ -211,11 +308,12 @@
       });
   }
 
-  window.addEventListener('storage', e => { 
-    if(e.key === WISH_KEY) load(); 
+  window.addEventListener('storage', e => {
+    if(e.key === WISH_KEY) load();
   });
-  
+
   load();
+  loadLogoImage();
 </script>
 </body>
 </html>
