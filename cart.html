@@ -12,11 +12,36 @@
   body { background: #fff; color: #333; line-height: 1.7; }
   .navbar { background: #f8dfff; padding: 1rem 5%; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  .logo { display: flex; align-items: center; gap: 0.6rem; color: #9c00b4; font-weight: 600; font-size: 1.1rem; text-decoration: none; }
-  .logo-icon { background: #e91e8c; padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .logo-icon svg { width: 20px; height: 20px; color: #fff; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: none; }
-  .logo-icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: none; z-index: 2; }
-  .logo-icon { overflow: hidden; width: 32px; height: 32px; padding: 0; flex: 0 0 32px; position: relative; }
+  .logo { display: flex; align-items: center; gap: 0.8rem; color: #9c00b4; font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+  
+  /* ===== ปรับโลโก้อิสระ ไม่มีกรอบ ไม่โดนบีบ ===== */
+  .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  /* ปรับขนาดโลโก้ได้อิสระที่ #logoImage */
+  #logoImage {
+    height: 35px; /* <--- ปรับความสูงโลโก้ได้ตามใจชอบตรงนี้ (เช่น 50px, 70px, 80px) */
+    width: auto;   /* ให้ความกว้างขยายตามสัดส่วนจริง รูปจะไม่โดนบีบ */
+    object-fit: contain;
+    display: none;
+  }
+
+  .logo-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #9c00b4;
+    display: none;
+  }
+
   .nav-menu { display: flex; gap: 2.5rem; flex-wrap: wrap; }
   .nav-link { color: #7b0094; text-decoration: none; font-weight: 500; font-size: 1rem; }
   .nav-icons { display: flex; gap: 1.2rem; align-items: center; }
@@ -193,12 +218,9 @@
   <div class="nav-container">
     <a href="home.html" class="logo">
       <span class="logo-icon" id="logoIcon">
-        <!-- ใส่ URL รูปโลโก้ใหม่ตรง LOGO_IMAGE_URL ด้านล่าง -->
         <img id="logoImage" src="" alt="Online Shopping Logo"
-             style="width:100%;height:100%;object-fit:contain;display:none;"
              onerror="showLogoFallback()">
-        <!-- โลโก้เดิม ใช้เป็นตัวสำรองเมื่อรูปจาก URL โหลดไม่ได้ -->
-        <svg id="logoFallback" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        <svg id="logoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
@@ -251,10 +273,6 @@
 <script>
   var API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
 
-  // ===== Logo Image =====
-  // ใส่ลิงก์รูปโลโก้ของคุณตรงนี้ได้เลย เช่น:
-  // var LOGO_IMAGE_URL = 'https://example.com/logo.png';
-  // ถ้าปล่อยเป็น '' จะใช้ UI โลโก้เดิม
   var LOGO_IMAGE_URL = 'https://i.pinimg.com/736x/52/39/86/523986afa120136bd56642bb00f23477.jpg';
 
   function showLogoFallback() {
@@ -319,7 +337,6 @@
     return div.innerHTML;
   }
 
-  // ===== Order Result Modal =====
   var CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   var CROSS_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
   var CLOSE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
