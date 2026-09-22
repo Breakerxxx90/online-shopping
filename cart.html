@@ -12,36 +12,9 @@
   body { background: #fff; color: #333; line-height: 1.7; }
   .navbar { background: #f8dfff; padding: 1rem 5%; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  .logo { display: flex; align-items: center; gap: 0.8rem; color: #9c00b4; font-weight: 600; font-size: 1.1rem; text-decoration: none; }
-  
-  /* ===== ปรับโลโก้อิสระ ไม่มีกรอบ ไม่โดนบีบ ===== */
-  .logo-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    overflow: visible !important;
-    width: auto !important;
-    height: auto !important;
-  }
-
-  /* ปรับขนาดโลโก้ได้อิสระที่ #logoImage */
-  #logoImage {
-    height: 35px; /* <--- ปรับความสูงโลโก้ได้ตามใจชอบตรงนี้ (เช่น 50px, 70px, 80px) */
-    width: auto;   /* ให้ความกว้างขยายตามสัดส่วนจริง รูปจะไม่โดนบีบ */
-    object-fit: contain;
-    display: none;
-  }
-
-  .logo-icon svg {
-    width: 32px;
-    height: 32px;
-    color: #9c00b4;
-    display: none;
-  }
-
+  .logo { display: flex; align-items: center; gap: 0.6rem; color: #9c00b4; font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+  .logo-icon { background: #e91e8c; padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .logo-icon svg { width: 20px; height: 20px; color: #fff; }
   .nav-menu { display: flex; gap: 2.5rem; flex-wrap: wrap; }
   .nav-link { color: #7b0094; text-decoration: none; font-weight: 500; font-size: 1rem; }
   .nav-icons { display: flex; gap: 1.2rem; align-items: center; }
@@ -131,24 +104,75 @@
     font-weight: 700; font-size: 1.25rem;
     color: #7b0094; margin-bottom: 1.1rem;
   }
-  .cart-rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .cart-rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; align-items: stretch; }
   .rec-card {
-    background: #fdf0ff; border-radius: 10px; padding: 1rem; cursor: pointer;
+    background: #fdf0ff;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
-  .rec-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(156, 0, 180, 0.12); }
+  .rec-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(156, 0, 180, 0.12);
+  }
   .rec-card-img {
-    aspect-ratio: 1; background: #f3e0fa; border-radius: 8px; display: flex; align-items: center;
-    justify-content: center; overflow: hidden; margin-bottom: 0.6rem;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
+    background: #f3e0fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 0.6rem;
   }
-  .rec-card-img img { width: 100%; height: 100%; object-fit: contain; padding: 0.5rem; }
+  .rec-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.5rem;
+    display: block;
+  }
   .rec-card-icon { font-size: 1.6rem; }
+
+  /* ชื่อสูงคงที่ 2 บรรทัด ถ้ายาวกว่านั้นเป็น ... */
   .rec-card-name {
-    font-weight: 600; font-size: 0.85rem; color: #333;
-    margin-bottom: 0.25rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: #333;
+    height: 2.3rem;
+    min-height: 2.3rem;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
   }
-  .rec-card-price { font-weight: 700; font-size: 0.9rem; color: #9c00b4; }
-  .rec-card-info { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; }
+
+  /* ราคากับหัวใจอยู่ตำแหน่งเดิมเสมอ ไม่เลื่อนตามชื่อ */
+  .rec-card-info {
+    margin-top: auto;
+    min-height: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .rec-card-price {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #9c00b4;
+    white-space: nowrap;
+  }
   .rec-wish-btn {
     background: none; border: none; cursor: pointer; padding: 2px; display: inline-flex;
     align-items: center; justify-content: center; color: #ccc; flex-shrink: 0;
@@ -217,11 +241,8 @@
 <header class="navbar">
   <div class="nav-container">
     <a href="home.html" class="logo">
-      <span class="logo-icon" id="logoIcon">
-        <img id="logoImage" src="" alt="Online Shopping Logo"
-             onerror="showLogoFallback()">
-        <svg id="logoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
+      <span class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 0 1-8 0"/>
@@ -272,33 +293,6 @@
 <script src="recommend.js"></script>
 <script>
   var API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
-
-  var LOGO_IMAGE_URL = 'https://i.pinimg.com/736x/52/39/86/523986afa120136bd56642bb00f23477.jpg';
-
-  function showLogoFallback() {
-    var img = document.getElementById('logoImage');
-    var fallback = document.getElementById('logoFallback');
-    if (img) img.style.display = 'none';
-    if (fallback) fallback.style.display = 'block';
-  }
-
-  function loadLogoImage() {
-    var img = document.getElementById('logoImage');
-    var fallback = document.getElementById('logoFallback');
-    if (!img || !fallback || !LOGO_IMAGE_URL) {
-      showLogoFallback();
-      return;
-    }
-
-    img.onload = function () {
-      img.style.display = 'block';
-      fallback.style.display = 'none';
-    };
-
-    img.onerror = showLogoFallback;
-    img.src = LOGO_IMAGE_URL;
-  }
-
   var CART_KEY = 'cart';
   var CURRENT_USER_KEY = 'currentUser';
   var SHIPPING_THRESHOLD = 100;
@@ -337,6 +331,7 @@
     return div.innerHTML;
   }
 
+  // ===== Order Result Modal =====
   var CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   var CROSS_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
   var CLOSE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
@@ -443,17 +438,57 @@
 
   function cartItemImageHtml(item) {
     var image = item && (item.image || item.productImage) ? String(item.image || item.productImage) : '';
-    var icon = escapeHtml((item && item.icon) || '🛍️');
     var name = escapeHtml((item && item.name) || 'สินค้า');
 
     if (image) {
       return '<img src="' + escapeHtml(image) + '" alt="' + name + '" ' +
-        'onerror="this.onerror=null;this.style.display=\'none\';this.parentElement.innerHTML=\'' +
-        '<div class=\\\'item-image-fallback\\\'><span>' + icon +
-        '</span><small>รูปสินค้าไม่พร้อมใช้งาน</small></div>\'">';
+        'onerror="this.onerror=null;this.style.display=\'none\';this.parentElement.innerHTML=\'<div class=\\\'item-image-fallback\\\'><small>รูปสินค้าไม่พร้อมใช้งาน</small></div>\'">';
     }
 
-    return '<div class="item-image-fallback"><span>' + icon + '</span><small>ไม่มีรูปสินค้า</small></div>';
+    return '<div class="item-image-fallback"><small>ไม่มีรูปสินค้า</small></div>';
+  }
+
+  // ดึงรูปจริงของสินค้าที่เลือกซื้อจาก Backend
+  // รองรับสินค้าที่ถูกเพิ่มลงตะกร้าก่อนหน้านี้และไม่มี image อยู่ใน localStorage
+  var cartImagesLoaded = false;
+  function loadCartProductImages() {
+    if (cartImagesLoaded) return Promise.resolve();
+
+    var cart = getCart();
+    if (!cart.length) {
+      cartImagesLoaded = true;
+      return Promise.resolve();
+    }
+
+    return fetch(API_BASE + '/products/all')
+      .then(function (res) {
+        if (!res.ok) throw new Error('โหลดสินค้าไม่สำเร็จ');
+        return res.json();
+      })
+      .then(function (products) {
+        var changed = false;
+
+        cart.forEach(function (item) {
+          var product = products.find(function (p) {
+            return String(p.id) === String(item.id);
+          });
+
+          if (product && product.image && item.image !== product.image) {
+            item.image = product.image;
+            changed = true;
+          }
+        });
+
+        if (changed) {
+          localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        }
+
+        cartImagesLoaded = true;
+      })
+      .catch(function () {
+        // ถ้า Backend โหลดไม่ได้ ให้แสดงตะกร้าตามข้อมูลเดิม
+        cartImagesLoaded = true;
+      });
   }
 
   function cartRecCardHtml(product) {
@@ -632,8 +667,9 @@
     });
   }
 
-  render();
-  loadLogoImage();
+  loadCartProductImages().then(function () {
+    render();
+  });
 </script>
 
 </body>
