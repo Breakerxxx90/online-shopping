@@ -68,7 +68,7 @@
   .product-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
   .product-price { font-weight: 600; font-size: 1.2rem; color: #9c00b4; }
 
-  /* ปรับแต่งปุ่มหัวใจให้สวยงามขึ้น */
+  /* ===== ปุ่มหัวใจ ===== */
   .remove-btn { 
     border: none; 
     background: #fff; 
@@ -83,10 +83,27 @@
     transition: all 0.2s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
-  .remove-btn svg { width: 20px; height: 20px; fill: #e53935; transition: transform 0.2s; }
-  .remove-btn:hover { background: #fee2e2; transform: scale(1.05); }
-  .remove-btn:hover svg { transform: scale(1.15); }
-  .remove-btn:active { transform: scale(0.95); }
+
+  .remove-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #e53935;
+    stroke: #e53935;
+    transition: transform 0.2s;
+  }
+
+  .remove-btn:hover {
+    background: #fee2e2;
+    transform: scale(1.05);
+  }
+
+  .remove-btn:hover svg {
+    transform: scale(1.15);
+  }
+
+  .remove-btn:active {
+    transform: scale(0.95);
+  }
 
   .empty { text-align: center; padding: 5rem 1rem; background: #fff; border-radius: 12px; border: 1px dashed #ddd; }
   .empty-heart { margin-bottom: 1rem; animation: pulse 2s infinite; }
@@ -101,19 +118,42 @@
     100% { transform: scale(1); }
   }
 
-  @media(max-width:1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .nav-menu { gap: 1rem; } }
+  @media(max-width:1024px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-menu {
+      gap: 1rem;
+    }
+  }
+
   @media(max-width:600px) { 
-    .nav-menu { display: none; } 
-    .page-head { flex-direction: column; align-items: flex-start; gap: 1rem; } 
-    .products-grid { grid-template-columns: 1fr; } 
+    .nav-menu {
+      display: none;
+    }
+
+    .page-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
+
 <body>
+
 <header class="navbar">
   <div class="nav-container">
+
     <a href="home.html" class="logo">
       <span class="logo-icon" id="logoIcon">
+
         <img id="logoImage"
              src=""
              alt="Online Shopping Logo"
@@ -126,11 +166,15 @@
              stroke-width="2"
              stroke-linecap="round"
              stroke-linejoin="round">
+
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 0 1-8 0"/>
+
         </svg>
+
       </span>
+
       <span>ONLINE SHOPPING</span>
     </a>
 
@@ -142,6 +186,7 @@
     </nav>
 
     <div class="nav-icons">
+
       <a href="Heart.html" aria-label="Wishlist">
         <svg viewBox="0 0 24 24" fill="#e53935" stroke="#e53935" stroke-width="2">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -155,25 +200,32 @@
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
         </svg>
       </a>
+
     </div>
   </div>
 </header>
 
 <main>
+
   <div class="page-head">
     <div>
       <h1 class="page-title">สินค้าที่ถูกใจ</h1>
       <p class="page-desc">รายการสินค้าที่คุณกดเพิ่มไว้ในรายการโปรด</p>
     </div>
+
     <a href="home.html" class="back-btn">← กลับหน้าหลัก</a>
   </div>
 
   <div id="productsGrid" class="products-grid"></div>
+
 </main>
 
-<footer class="footer">© 2026 Online Shopping. สงวนลิขสิทธิ์ทุกประการ</footer>
+<footer class="footer">
+  © 2026 Online Shopping. สงวนลิขสิทธิ์ทุกประการ
+</footer>
 
 <script>
+
   const API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
   const WISH_KEY = 'wishlist';
 
@@ -224,96 +276,157 @@
   }
 
   function render(products) {
+
     const ids = getWishlist();
     const wanted = products.filter(p => ids.includes(String(p.id)));
     const grid = document.getElementById('productsGrid');
 
     if(!wanted.length) {
-      grid.innerHTML = `
-        <div class="empty" style="grid-column:1/-1">
-          <div class="empty-heart">
-            <svg width="64" height="64" viewBox="0 0 24 24"
+
+      grid.innerHTML = ` 
+        <div class="empty" style="grid-column:1/-1"> 
+
+          <div class="empty-heart"> 
+            <svg width="64" height="64" viewBox="0 0 24 24" 
                  fill="#e53935"
+                 stroke="#e53935"
+                 stroke-width="2"
                  aria-hidden="true">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
-                       2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
-                       C13.09 3.81 14.76 3 16.5 3
-                       19.58 3 22 5.42 22 8.5
-                       c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+
             </svg>
           </div>
+
           <h2>ยังไม่มีสินค้าที่ถูกใจ</h2>
           <p>กด ❤️ ที่สินค้าบนหน้า Home เพื่อเพิ่มสินค้าไว้ที่นี่</p>
+
         </div>`;
+
       return;
     }
 
     grid.innerHTML = wanted.map(p => `
+
       <div class="product-card">
-        <div class="product-image" onclick="location.href='product.html?id=${encodeURIComponent(p.id)}'">
-          ${p.image
+
+        <div class="product-image"
+             onclick="location.href='product.html?id=${encodeURIComponent(p.id)}'">
+
+          ${
+            p.image
             ? `<img src="${esc(p.image)}" alt="${esc(p.name)}">`
-            : `<div class="emoji-icon">${esc(p.icon||'📦')}</div>`}
+            : `<div class="emoji-icon">${esc(p.icon||'📦')}</div>`
+          }
+
         </div>
 
         <div class="product-info">
-          <div class="product-name">${esc(p.name)}</div>
+
+          <div class="product-name">
+            ${esc(p.name)}
+          </div>
 
           <div class="product-bottom">
-            <span class="product-price">$${Number(p.price).toFixed(2)}</span>
 
-            <button
-              class="remove-btn"
+            <span class="product-price">
+              $${Number(p.price).toFixed(2)}
+            </span>
+
+            <button 
+              class="remove-btn" 
               onclick="removeWish('${String(p.id).replace(/'/g,"\\'")}')"
               title="ลบออกจากรายการโปรด">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0 7.78z"/>
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="#e53935"
+                stroke="#e53935"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+
               </svg>
+
             </button>
+
           </div>
+
         </div>
+
       </div>
+
     `).join('');
   }
 
   function removeWish(id) {
-    saveWishlist(getWishlist().filter(x => x !== String(id)));
+
+    saveWishlist(
+      getWishlist().filter(
+        x => x !== String(id)
+      )
+    );
+
     load();
   }
 
   function load() {
+
     fetch(API_BASE + '/products/all')
+
       .then(r => r.json())
+
       .then(all => {
-        // กรองสินค้าซ้ำออก (กรณีมี id ซ้ำกัน)
+
+        // กรองสินค้าซ้ำออก
         const seen = new Set();
 
         const uniqueProducts = all.filter(p => {
+
           const k = String(p.id);
 
           if(seen.has(k)) return false;
 
           seen.add(k);
+
           return true;
         });
 
         render(uniqueProducts);
+
       })
+
       .catch(() => {
+
         document.getElementById('productsGrid').innerHTML = `
+
           <div class="empty" style="grid-column:1/-1">
+
             <h2>โหลดสินค้าไม่สำเร็จ</h2>
-            <p>กรุณาตรวจสอบว่า Backend (server.js) กำลังทำงานอยู่</p>
+
+            <p>
+              กรุณาตรวจสอบว่า Backend (server.js) กำลังทำงานอยู่
+            </p>
+
           </div>`;
+
       });
   }
 
   window.addEventListener('storage', e => {
-    if(e.key === WISH_KEY) load();
+
+    if(e.key === WISH_KEY) {
+      load();
+    }
+
   });
 
   load();
   loadLogoImage();
+
 </script>
+
 </body>
 </html>
