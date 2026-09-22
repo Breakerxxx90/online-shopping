@@ -47,7 +47,12 @@
     .navbar { background: #f8dfff; padding: 1rem 5%; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     .logo { display: flex; align-items: center; gap: 0.6rem; color: #9c00b4; font-weight: 700; font-size: 1.1rem; text-decoration: none; }
-    .logo svg { width: 32px; height: 32px; }
+    
+    /* ===== โลโก้แบบรูปภาพ ไม่มีกรอบ และปรับขนาดได้อิสระ ===== */
+    .logo-icon { display:flex; align-items:center; justify-content:center; background:none !important; padding:0 !important; border-radius:0 !important; overflow:visible !important; width:auto !important; height:auto !important; }
+    #logoImage { height:35px; width:auto; object-fit:contain; display:none; }
+    .logo-icon svg { width:32px; height:32px; color:#9c00b4; display:none; }
+
     .nav-menu { display: flex; gap: 2.5rem; flex-wrap: wrap; }
     .nav-link { color: #7b0094; text-decoration: none; font-weight: 500; font-size: 1rem; transition: color 0.2s; }
     .nav-link:hover { color: #e91e8c; }
@@ -84,7 +89,22 @@
     .btn-primary:hover { background: #7b0094; }
     .btn-outline { padding: 0.8rem 1.8rem; background: #fff; color: #555; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: border-color 0.2s, color 0.2s; text-decoration: none; }
     .btn-outline:hover { border-color: #9c00b4; color: #9c00b4; }
-    .hero-image { background: #f0e6f0; border-radius: 8px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.9rem; overflow: hidden; }
+    
+    /* =========================================================
+       [จุดปรับขนาดรูปแบนเนอร์ HERO]
+       ========================================================= */
+    .hero-image { 
+      background: #f0e6f0; 
+      border-radius: 8px; 
+      aspect-ratio: 4/3; /* <--- อัตราส่วนภาพ (เช่น 16/9, 4/3, 1/1) */
+      max-height: 350px; /* <--- กำหนดความสูงสูงสุดของกรอบภาพ */
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: #aaa; 
+      font-size: 0.9rem; 
+      overflow: hidden; 
+    }
     .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .slider-dots { text-align: right; margin-top: 0.8rem; padding-right: 2.5rem; }
     .dot { font-size: 0.6rem; color: #ddd; margin: 0 0.25rem; }
@@ -121,7 +141,19 @@
     /* Product Card */
     .product-card { background: #f8f8f8; border-radius: 12px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
     .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(156, 0, 180, 0.15); }
-    .product-image { aspect-ratio: 1; background: #e8e8e8; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    
+    /* =========================================================
+       [จุดปรับขนาดรูปภาพสินค้า]
+       ========================================================= */
+    .product-image { 
+      aspect-ratio: 1; /* <--- อัตราส่วนความกว้าง/ยาวของรูปสินค้า (1 คือสี่เหลี่ยมจัตุรัส) */
+      height: 220px;  /* <--- สามารถระบุความสูงคงที่ตรงนี้ได้ถ้าต้องการ */
+      background: #e8e8e8; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      overflow: hidden; 
+    }
     .product-image img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 1rem; }
     .product-image .placeholder { color: #aaa; font-size: 0.85rem; text-align: center; padding: 1rem; }
     .product-info { padding: 1rem; }
@@ -230,10 +262,9 @@
       .hero-title { font-size: 1.6rem; }
     }
 
-/* =========================
+/* =========================================================
    Floating Task Widget
-   Same theme as Home
-   ========================= */
+   ========================================================= */
 .task-widget {
   --task-main: #6d3fd3;
   --task-light: #f0e7ff;
@@ -242,7 +273,7 @@
   position: fixed;
   right: 25px;
   bottom: 25px;
-  width: 310px;
+  width: 310px; /* <--- ปรับความกว้างของวิดเจ็ตภารกิจ */
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0,0,0,.18);
@@ -252,7 +283,7 @@
 }
 
 .task-widget.collapsed {
-  width: 58px;
+  width: 58px;  /* <--- ปรับขนาดปุ่มทรงกลมตอนย่อวิดเจ็ต */
   height: 58px;
   border-radius: 50%;
   cursor: grab;
@@ -351,7 +382,7 @@
 .task-btn {
   border: 1px solid #ddd;
   background: var(--task-bg);
-  border-radius: 9px;
+  border-radius: 99px;
   padding: 9px 6px;
   cursor: pointer;
   font-size: 13px;
@@ -420,11 +451,10 @@
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
+        <span class="logo-icon" id="logoIcon">
+          <img id="logoImage" src="" alt="Online Shopping Logo" onerror="showLogoFallback()">
+          <svg id="logoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </span>
         <span>ONLINE SHOPPING</span>
       </a>
       <nav class="nav-menu">
@@ -485,7 +515,6 @@
         </div>
       </div>
       <div class="hero-image">
-        <!-- ★ ใส่ลิงก์รูปแบนเนอร์ของคุณใน src ตรงนี้ได้เลย -->
         <img src="https://i.pinimg.com/736x/77/19/00/77190088c8605dde08fdd0b3ab1a5441.jpg" alt="Banner" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'placeholder\'>ใส่รูปแบนเนอร์<br>ของคุณที่นี่</div>'">
       </div>
     </div>
@@ -657,6 +686,10 @@
 <script>
 
   var API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
+  var LOGO_IMAGE_URL = 'https://i.pinimg.com/736x/52/39/86/523986afa120136bd56642bb00f23477.jpg';
+  function showLogoFallback(){var i=document.getElementById('logoImage'),f=document.getElementById('logoFallback');if(i)i.style.display='none';if(f)f.style.display='block';}
+  function loadLogoImage(){var i=document.getElementById('logoImage'),f=document.getElementById('logoFallback');if(!i||!f||!LOGO_IMAGE_URL){showLogoFallback();return;}i.onload=function(){i.style.display='block';f.style.display='none';};i.onerror=showLogoFallback;i.src=LOGO_IMAGE_URL;}
+
 
   var LIKES_ICON = '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
   var MORE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
@@ -683,8 +716,6 @@
     return String(n);
   }
 
-  // ยังไม่มีฟิลด์ likes จาก backend -> สร้างเลขจำลองคงที่ต่อสินค้า (อิงจาก id)
-  // ไว้แสดงก่อน พอ backend ส่ง product.likes มาจริง โค้ดจะใช้ค่าจริงแทนทันที
   function pseudoLikes(id) {
     var str = String(id || '');
     var hash = 0;
@@ -808,7 +839,6 @@
   });
 
   function loadProducts() {
-    // โหลดหมวดหมู่และสินค้าจาก Backend ชุดเดียวกับ Admin
     Promise.all([
       fetch(API_BASE + '/categories').then(function (res) {
         if (!res.ok) throw new Error('โหลดหมวดหมู่ไม่สำเร็จ');
@@ -823,7 +853,6 @@
         var categories = result[0] || [];
         var products = result[1] || [];
 
-        // จัดสินค้าตาม category ให้ตรงกับที่ Admin เลือก
         var grouped = {};
         categories.forEach(function (cat) {
           grouped[cat.key] = [];
@@ -834,12 +863,10 @@
           grouped[key].push(product);
         });
 
-        // หมวดหลัก
         renderGrid('foryouGrid', grouped.foryou || []);
         renderGrid('trendingGrid', grouped.trending || []);
         renderGrid('gamerGrid', grouped.gamer || []);
 
-        // สร้างหมวดที่ Admin เพิ่มเองแบบอัตโนมัติ
         var customWrap = document.getElementById('customCategoriesHome');
         if (customWrap) {
           var customCategories = categories.filter(function (cat) {
@@ -862,7 +889,6 @@
           });
         }
 
-        // รวมสินค้าทุกหมวดไว้สำหรับระบบค้นหา
         allProductsForSearch = products.slice();
 
         var wishlistPanel = document.getElementById('wishlistPanel');
@@ -879,10 +905,6 @@
       });
   }
 
-  // ===== (Recommendation) =====
-  // Ranking/Intent Scoring: ถ้ามีพฤติกรรมในเซสชันนี้ (เคยดู/เคยคลิกสินค้าไหน) จะได้
-  // คำแนะนำแบบ personalized ตามหมวดหมู่ที่สนใจ ถ้ายังไม่มีข้อมูล (ผู้ใช้ใหม่ / cold-start)
-  // ระบบจะ fallback ไปแสดงสินค้ายอดนิยมแทน
   function loadRecommended() {
     RCM.fetchRecommendations({ limit: 4 })
       .then(function (data) {
@@ -901,7 +923,6 @@
       });
   }
 
-  // ==== (Wishlist) =====
   var WISH_KEY = 'wishlist';
   function getWishlist() {
     try { return JSON.parse(localStorage.getItem(WISH_KEY) || '[]'); } catch (e) { return []; }
@@ -959,6 +980,7 @@
   }
   updateCartBadge();
   window.addEventListener('storage', function (e) { if (e.key === CART_KEY) updateCartBadge(); });
+  loadLogoImage();
 
   loadProducts();
   loadRecommended();
@@ -974,7 +996,6 @@
     <div class="task-title">
        ภารกิจทดสอบระบบ
     </div>
-
 
     <button class="minimize-btn" id="minimizeTask" type="button" aria-label="ย่อ">
       −
@@ -1073,7 +1094,6 @@
     if (selectedButton) selectedButton.classList.add("active");
   };
 
-  /* คลิกวงกลมเพื่อเปิด */
   taskHeader.addEventListener("click", function (e) {
     if (e.target === minimizeTask) return;
 
@@ -1082,13 +1102,11 @@
     }
   });
 
-  /* ปุ่ม - เพื่อย่อกลับเป็นวงกลม */
   minimizeTask.addEventListener("click", function (e) {
     e.stopPropagation();
     taskWidget.classList.add("collapsed");
   });
 
-  /* ลากได้ทั้งเมาส์และการสัมผัส */
   let dragging = false;
   let pointerId = null;
   let offsetX = 0;
