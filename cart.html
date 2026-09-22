@@ -15,6 +15,8 @@
   .logo { display: flex; align-items: center; gap: 0.6rem; color: #9c00b4; font-weight: 600; font-size: 1.1rem; text-decoration: none; }
   .logo-icon { background: #e91e8c; padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
   .logo-icon svg { width: 20px; height: 20px; color: #fff; }
+  .logo-icon img { width: 20px; height: 20px; object-fit: contain; }
+  .logo-icon { overflow: hidden; }
   .nav-menu { display: flex; gap: 2.5rem; flex-wrap: wrap; }
   .nav-link { color: #7b0094; text-decoration: none; font-weight: 500; font-size: 1rem; }
   .nav-icons { display: flex; gap: 1.2rem; align-items: center; }
@@ -190,8 +192,13 @@
 <header class="navbar">
   <div class="nav-container">
     <a href="home.html" class="logo">
-      <span class="logo-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <span class="logo-icon" id="logoIcon">
+        <!-- ใส่ URL รูปโลโก้ของคุณที่ LOGO_IMAGE_URL ด้านล่าง -->
+        <img id="logoImage" src="" alt="Online Shopping Logo"
+             style="width:20px;height:20px;object-fit:contain;display:none;"
+             onerror="showLogoFallback()">
+        <!-- UI เดิมจะถูกใช้เป็นตัวสำรองถ้ารูปจากลิงก์โหลดไม่ได้ -->
+        <svg id="logoFallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 0 1-8 0"/>
@@ -242,6 +249,37 @@
 <script src="recommend.js"></script>
 <script>
   var API_BASE = 'https://online-shopping-backend-vsh3.onrender.com/api';
+
+  // ===== Logo Image =====
+  // ใส่ลิงก์รูปโลโก้ของคุณตรงนี้ได้เลย เช่น:
+  // var LOGO_IMAGE_URL = 'https://example.com/logo.png';
+  // ถ้าปล่อยเป็น '' จะใช้ UI โลโก้เดิม
+  var LOGO_IMAGE_URL = '';
+
+  function showLogoFallback() {
+    var img = document.getElementById('logoImage');
+    var fallback = document.getElementById('logoFallback');
+    if (img) img.style.display = 'none';
+    if (fallback) fallback.style.display = 'block';
+  }
+
+  function loadLogoImage() {
+    var img = document.getElementById('logoImage');
+    var fallback = document.getElementById('logoFallback');
+    if (!img || !fallback || !LOGO_IMAGE_URL) {
+      showLogoFallback();
+      return;
+    }
+
+    img.onload = function () {
+      img.style.display = 'block';
+      fallback.style.display = 'none';
+    };
+
+    img.onerror = showLogoFallback;
+    img.src = LOGO_IMAGE_URL;
+  }
+
   var CART_KEY = 'cart';
   var CURRENT_USER_KEY = 'currentUser';
   var SHIPPING_THRESHOLD = 100;
@@ -416,7 +454,7 @@
           '</div>' +
           '<button type="button" class="rec-wish-btn' + (wished ? ' active' : '') + '" ' +
             'aria-label="' + (wished ? 'นำออกจากรายการโปรด' : 'เพิ่มในรายการโปรด') + '" ' +
-            'onclick="event.stopPropagation();toggleCartWish(\'' + pid + '\\', this)">' +
+            'onclick="event.stopPropagation();toggleCartWish(\'' + pid + '\', this)">' +
             CART_HEART_ICON +
           '</button>' +
         '</div>' +
@@ -577,6 +615,7 @@
   }
 
   render();
+  loadLogoImage();
 </script>
 
 </body>
